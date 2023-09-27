@@ -1,0 +1,104 @@
+#########################
+# libSDL2_ttf
+#########################
+
+DEP libSDL2-2.0.so.0
+DEP libm.so.6
+DEP libX11.so.6
+DEP libXext.so.6
+DEP libXcursor.so.1
+DEP libXi.so.6
+DEP libXfixes.so.3
+DEP libXrandr.so.2
+DEP libXss.so.1
+DEP libpthread.so.0
+DEP librt.so.1
+DEP libc.so.6
+
+SYM .text TTF_ByteSwappedUNICODE
+SYM .text TTF_CloseFont
+SYM .text TTF_FontAscent
+SYM .text TTF_FontDescent
+SYM .text TTF_FontFaceFamilyName
+SYM .text TTF_FontFaceIsFixedWidth
+SYM .text TTF_FontFaceStyleName
+SYM .text TTF_FontFaces
+SYM .text TTF_FontHeight
+SYM .text TTF_FontLineSkip
+SYM .text TTF_GetFontHinting
+SYM .text TTF_GetFontKerning
+SYM .text TTF_GetFontKerningSize
+SYM .text TTF_GetFontKerningSizeGlyphs
+SYM .text TTF_GetFontKerningSizeGlyphs32
+SYM .text TTF_GetFontOutline
+SYM .text TTF_GetFontSDF
+SYM .text TTF_GetFontStyle
+SYM .text TTF_GetFontWrappedAlign
+SYM .text TTF_GetFreeTypeVersion
+SYM .text TTF_GetHarfBuzzVersion
+SYM .text TTF_GlyphIsProvided
+SYM .text TTF_GlyphIsProvided32
+SYM .text TTF_GlyphMetrics
+SYM .text TTF_GlyphMetrics32
+SYM .text TTF_Init
+SYM .text TTF_Linked_Version
+SYM .text TTF_MeasureText
+SYM .text TTF_MeasureUNICODE
+SYM .text TTF_MeasureUTF8
+SYM .text TTF_OpenFont
+SYM .text TTF_OpenFontDPI
+SYM .text TTF_OpenFontDPIRW
+SYM .text TTF_OpenFontIndex
+SYM .text TTF_OpenFontIndexDPI
+SYM .text TTF_OpenFontIndexDPIRW
+SYM .text TTF_OpenFontIndexRW
+SYM .text TTF_OpenFontRW
+SYM .text TTF_Quit
+SYM .text TTF_RenderGlyph32_Blended
+SYM .text TTF_RenderGlyph32_LCD
+SYM .text TTF_RenderGlyph32_Shaded
+SYM .text TTF_RenderGlyph32_Solid
+SYM .text TTF_RenderGlyph_Blended
+SYM .text TTF_RenderGlyph_LCD
+SYM .text TTF_RenderGlyph_Shaded
+SYM .text TTF_RenderGlyph_Solid
+SYM .text TTF_RenderText_Blended
+SYM .text TTF_RenderText_Blended_Wrapped
+SYM .text TTF_RenderText_LCD
+SYM .text TTF_RenderText_LCD_Wrapped
+SYM .text TTF_RenderText_Shaded
+SYM .text TTF_RenderText_Shaded_Wrapped
+SYM .text TTF_RenderText_Solid
+SYM .text TTF_RenderText_Solid_Wrapped
+SYM .text TTF_RenderUNICODE_Blended
+SYM .text TTF_RenderUNICODE_Blended_Wrapped
+SYM .text TTF_RenderUNICODE_LCD
+SYM .text TTF_RenderUNICODE_LCD_Wrapped
+SYM .text TTF_RenderUNICODE_Shaded
+SYM .text TTF_RenderUNICODE_Shaded_Wrapped
+SYM .text TTF_RenderUNICODE_Solid
+SYM .text TTF_RenderUNICODE_Solid_Wrapped
+SYM .text TTF_RenderUTF8_Blended
+SYM .text TTF_RenderUTF8_Blended_Wrapped
+SYM .text TTF_RenderUTF8_LCD
+SYM .text TTF_RenderUTF8_LCD_Wrapped
+SYM .text TTF_RenderUTF8_Shaded
+SYM .text TTF_RenderUTF8_Shaded_Wrapped
+SYM .text TTF_RenderUTF8_Solid
+SYM .text TTF_RenderUTF8_Solid_Wrapped
+SYM .text TTF_SetDirection
+SYM .text TTF_SetFontDirection
+SYM .text TTF_SetFontHinting
+SYM .text TTF_SetFontKerning
+SYM .text TTF_SetFontOutline
+SYM .text TTF_SetFontSDF
+SYM .text TTF_SetFontScriptName
+SYM .text TTF_SetFontSize
+SYM .text TTF_SetFontSizeDPI
+SYM .text TTF_SetFontStyle
+SYM .text TTF_SetFontWrappedAlign
+SYM .text TTF_SetScript
+SYM .text TTF_SizeText
+SYM .text TTF_SizeUNICODE
+SYM .text TTF_SizeUTF8
+SYM .text TTF_WasInit
