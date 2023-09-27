@@ -20,7 +20,6 @@ for lib in $libs; do
 
     ./zig-out/bin/implib < "examples/${name}.def" > "examples/${name}.zig"
 
-
     (
         cd examples
         zig build-lib -dynamic -target arm-linux-gnueabihf --name "${name#lib}" "${name}.zig"
