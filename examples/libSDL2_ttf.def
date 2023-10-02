@@ -2,6 +2,11 @@
 # libSDL2_ttf
 #########################
 
+PATH /nix/store/a84qr1dyl4c9iw497xibix9v6ybvaj43-SDL2_ttf-2.20.2/lib/libSDL2_ttf.so
+
+NAME libSDL2_ttf.so
+NAME libSDL2_ttf-2.0.so.0.2000.2
+
 DEP libSDL2-2.0.so.0
 DEP libm.so.6
 DEP libX11.so.6
@@ -102,3 +107,4 @@ SYM .text TTF_SizeText
 SYM .text TTF_SizeUNICODE
 SYM .text TTF_SizeUTF8
 SYM .text TTF_WasInit
+

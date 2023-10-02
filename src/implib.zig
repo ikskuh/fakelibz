@@ -1,8 +1,25 @@
 const std = @import("std");
 
 pub fn main() !void {
-    var buffered_in = std.io.bufferedReader(std.io.getStdIn().reader());
-    var buffered_out = std.io.bufferedWriter(std.io.getStdOut().writer());
+    const argv = try std.process.argsAlloc(std.heap.page_allocator);
+
+    if (argv.len < 1 or argv.len > 3)
+        @panic("usage: implib [<input>] [<output>]");
+
+    var input = if (argv.len >= 2)
+        try std.fs.cwd().openFile(argv[1], .{})
+    else
+        std.io.getStdIn();
+    defer input.close();
+
+    var output = if (argv.len >= 3)
+        try std.fs.cwd().createFile(argv[2], .{})
+    else
+        std.io.getStdOut();
+    defer output.close();
+
+    var buffered_in = std.io.bufferedReader(input.reader());
+    var buffered_out = std.io.bufferedWriter(output.writer());
 
     const reader = buffered_in.reader();
     const writer = buffered_out.writer();
@@ -39,9 +56,17 @@ pub fn main() !void {
         var parts = std.mem.tokenize(u8, line, " ");
 
         const kind_str = parts.next() orelse return error.InvalidFile;
-        const kind = std.meta.stringToEnum(EntryKind, kind_str) orelse return error.InvalidFile;
+        const kind = std.meta.stringToEnum(EntryKind, kind_str) orelse {
+            std.log.err("found invalid line entry: '{}'", .{
+                std.fmt.fmtSliceEscapeUpper(kind_str),
+            });
+            return error.InvalidFile;
+        };
 
         switch (kind) {
+            .NAME => {},
+            .PATH => {},
+            .VERSION => {},
             .DEP => {},
             .SYM => {
                 const section = parts.next() orelse return error.InvalidFile;
@@ -70,6 +95,7 @@ pub fn main() !void {
                     );
                 }
             },
+            .ABS => @panic("absolute symbols not supported by implib yet!"),
         }
     }
 
@@ -77,6 +103,10 @@ pub fn main() !void {
 }
 
 const EntryKind = enum {
+    PATH,
+    NAME,
+    VERSION,
     DEP,
     SYM,
+    ABS,
 };

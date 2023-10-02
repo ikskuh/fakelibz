@@ -2,6 +2,11 @@
 # libSDL2
 #########################
 
+PATH /nix/store/mgk70zgp61lcm141fcdbch7500cp6lm6-SDL2-2.26.5/lib/libSDL2.so
+
+NAME libSDL2.so
+NAME libSDL2-2.0.so.0.2600.5
+
 DEP libm.so.6
 DEP libX11.so.6
 DEP libXext.so.6
@@ -850,3 +855,4 @@ SYM .text SDL_wcslen
 SYM .text SDL_wcsncasecmp
 SYM .text SDL_wcsncmp
 SYM .text SDL_wcsstr
+
