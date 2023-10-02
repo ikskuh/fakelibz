@@ -25,9 +25,9 @@ pub const FakeLibraryOptions = struct {
 };
 
 pub fn fakeLibrary(dep: *std.Build.Dependency, options: FakeLibraryOptions) *std.Build.CompileStep {
-    if (options.target.isNative()) {
-        @panic("Cannot use fakelibz to compile to native target. Please link the correct library when not cross-compiling!");
-    }
+    // if (options.target.isNative()) {
+    //     @panic("Cannot use fakelibz to compile to native target. Please link the correct library when not cross-compiling!");
+    // }
 
     const implib_exe = dep.artifact("implib");
 
