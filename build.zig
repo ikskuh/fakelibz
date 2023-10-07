@@ -1,25 +1,15 @@
 const std = @import("std");
 
 pub fn build(b: *std.Build) !void {
-    const parse_nm = b.addExecutable(.{
-        .name = "parse-nm",
-        .root_source_file = .{ .path = "src/parse-nm.zig" },
+    const args_dep = b.dependency("args", .{});
+    const args_mod = args_dep.module("args");
+
+    const fakelibz = b.addExecutable(.{
+        .name = "fakelibz",
+        .root_source_file = .{ .path = "src/fakelibz.zig" },
     });
-
-    b.installArtifact(parse_nm);
-
-    const lib2zig = b.addExecutable(.{
-        .name = "lib2zig",
-        .root_source_file = .{ .path = "src/lib2zig.zig" },
-    });
-    b.installArtifact(lib2zig);
-
-    const implib = b.addExecutable(.{
-        .name = "implib",
-        .root_source_file = .{ .path = "src/implib.zig" },
-    });
-
-    b.installArtifact(implib);
+    fakelibz.addModule("args", args_mod);
+    b.installArtifact(fakelibz);
 }
 
 pub const FakeLibraryOptions = struct {
@@ -35,10 +25,12 @@ pub fn fakeLibrary(dep: *std.Build.Dependency, options: FakeLibraryOptions) *std
     //     @panic("Cannot use fakelibz to compile to native target. Please link the correct library when not cross-compiling!");
     // }
 
-    const lib2zig_exe = dep.artifact("lib2zig");
+    const lib2zig_exe = dep.artifact("fakelibz");
 
     const gen_ziglib = dep.builder.addRunArtifact(lib2zig_exe);
+    gen_ziglib.addArg("impl");
     gen_ziglib.addFileArg(options.definition_file);
+    gen_ziglib.addArg("--output");
     const library_src = gen_ziglib.addOutputFileArg(dep.builder.fmt("{s}.zig", .{options.name}));
 
     const fake_lib = dep.builder.addSharedLibrary(.{

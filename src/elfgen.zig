@@ -2,7 +2,10 @@ const std = @import("std");
 
 // https://refspecs.linuxfoundation.org/elf/elf.pdf
 
-pub fn main() !u8 {
+pub fn parseElfFile(
+    input: std.fs.File,
+    out_writer: anytype,
+) !u8 {
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     const allocator = arena.allocator();
 
@@ -13,16 +16,9 @@ pub fn main() !u8 {
 
     const lib_path = argv[1];
 
-    var input = try std.fs.cwd().openFile(lib_path, .{});
-    defer input.close();
 
-    var output = if (argv.len >= 3)
-        try std.fs.cwd().createFile(argv[2], .{})
-    else
-        std.io.getStdOut();
-    defer output.close();
 
-    var buffered_out = std.io.bufferedWriter(output.writer());
+    var buffered_out = std.io.bufferedWriter(out_writer);
 
     const writer = buffered_out.writer();
 

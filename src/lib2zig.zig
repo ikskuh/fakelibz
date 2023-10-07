@@ -1,25 +1,11 @@
 const std = @import("std");
 
-pub fn main() !void {
-    const argv = try std.process.argsAlloc(std.heap.page_allocator);
-
-    if (argv.len < 1 or argv.len > 3)
-        @panic("usage: implib [<input>] [<output>]");
-
-    var input = if (argv.len >= 2)
-        try std.fs.cwd().openFile(argv[1], .{})
-    else
-        std.io.getStdIn();
-    defer input.close();
-
-    var output = if (argv.len >= 3)
-        try std.fs.cwd().createFile(argv[2], .{})
-    else
-        std.io.getStdOut();
-    defer output.close();
-
-    var buffered_in = std.io.bufferedReader(input.reader());
-    var buffered_out = std.io.bufferedWriter(output.writer());
+pub fn generateZigImplementation(
+    raw_reader: anytype,
+    raw_writer: anytype,
+) !void {
+    var buffered_in = std.io.bufferedReader(raw_reader);
+    var buffered_out = std.io.bufferedWriter(raw_writer);
 
     const reader = buffered_in.reader();
     const writer = buffered_out.writer();
