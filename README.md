@@ -20,3 +20,7 @@ ABS     <name> <value>            # Declares an absolute symbol <name> with the 
 The spacing between each item is arbitrary, but must be at least a single `SP` character. Lines are terminated by either `LF` or `CR LF` and can use indentation with either `SP` or `TAB` characters.
 
 The files are encoded in `UTF-8` encoding.
+
+## Repository
+
+I (xq) maintain my personal cross-compilation repository in the [fakerootz](https://github.com/MasterQ32/fakerootz) repo. Feel free to add more files!

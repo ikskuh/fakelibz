@@ -8,6 +8,12 @@ pub fn build(b: *std.Build) !void {
 
     b.installArtifact(parse_nm);
 
+    const lib2zig = b.addExecutable(.{
+        .name = "lib2zig",
+        .root_source_file = .{ .path = "src/lib2zig.zig" },
+    });
+    b.installArtifact(lib2zig);
+
     const implib = b.addExecutable(.{
         .name = "implib",
         .root_source_file = .{ .path = "src/implib.zig" },
@@ -29,11 +35,11 @@ pub fn fakeLibrary(dep: *std.Build.Dependency, options: FakeLibraryOptions) *std
     //     @panic("Cannot use fakelibz to compile to native target. Please link the correct library when not cross-compiling!");
     // }
 
-    const implib_exe = dep.artifact("implib");
+    const lib2zig_exe = dep.artifact("lib2zig");
 
-    const implib_gen = dep.builder.addRunArtifact(implib_exe);
-    implib_gen.addFileArg(options.definition_file);
-    const library_src = implib_gen.addOutputFileArg(dep.builder.fmt("{s}.zig", .{options.name}));
+    const gen_ziglib = dep.builder.addRunArtifact(lib2zig_exe);
+    gen_ziglib.addFileArg(options.definition_file);
+    const library_src = gen_ziglib.addOutputFileArg(dep.builder.fmt("{s}.zig", .{options.name}));
 
     const fake_lib = dep.builder.addSharedLibrary(.{
         .name = options.name,

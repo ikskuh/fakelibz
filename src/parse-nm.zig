@@ -103,6 +103,10 @@ const Symbol = struct {
         pub fn isLocal(t: Type) bool {
             return std.ascii.isLower(@intFromEnum(t));
         }
+
+        pub fn hasValue(t: Type) bool {
+            return (t == . global_absolute) or (t == .local_absolute);
+        }
     };
 };
 fn parseSymbol(line: []const u8) !Symbol {
@@ -113,13 +117,24 @@ fn parseSymbol(line: []const u8) !Symbol {
     const sym_value_str = spliter.next() orelse return error.MissingValue;
     const sym_size_str = spliter.next() orelse return error.MissingSize;
 
+    errdefer std.log.err("'{s}' '{s}' '{s}' '{s}'", .{
+        sym_name_str,
+        sym_type_str,
+        sym_value_str,
+        sym_size_str,
+    });
+
     if (sym_type_str.len != 1)
         return error.InvalidType;
 
+    const sym_type = try std.meta.intToEnum(Symbol.Type, sym_type_str[0]);
+    const sym_value = if(!sym_type.isUndefined())  try std.fmt.parseInt(u64, sym_value_str, 16) else 0;
+    const sym_size =  if(sym_type.hasValue()) try std.fmt.parseInt(u64, sym_size_str, 16) else 0;
+
     return Symbol{
         .name = sym_name_str,
-        .type = try std.meta.intToEnum(Symbol.Type, sym_type_str[0]),
-        .value = try std.fmt.parseInt(u64, sym_value_str, 16),
-        .size = try std.fmt.parseInt(u64, sym_size_str, 16),
+        .type = sym_type,
+        .value = sym_value,
+        .size = sym_size,
     };
 }
